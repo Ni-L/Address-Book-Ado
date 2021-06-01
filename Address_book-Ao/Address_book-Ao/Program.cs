@@ -20,8 +20,9 @@ namespace Address_book_Ao
 
             //AddNewContactDetails();//UC3
             // Console.WriteLine(addressBookManagement.EditContactUsingName("445566", "Naina", "Wadal") ? "Update Record successfully\n" : "Update failed"); //UC4
-           // Console.WriteLine(addressBookManagement.DeleteContactUsingName("Naina", "Wadal") ? "Delete Record successfully\n" : "Delete failed"); //UC5
-            addressBookManagement.RetrieveContactFromCityOrStateName(); //UC6
+            //Console.WriteLine(addressBookManagement.DeleteContactUsingName("Naina", "Wadal") ? "Delete Record successfully\n" : "Delete failed"); //UC5
+           // addressBookManagement.RetrieveContactFromCityOrStateName(); //UC6
+            addressBookManagement.CountByCityOrState(); //UC7
             Console.ReadLine();
 
         }
