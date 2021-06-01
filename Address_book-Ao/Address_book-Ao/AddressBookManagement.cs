@@ -148,5 +148,40 @@ namespace Address_book_Ao
                 connection.Close();
             }
         }
+        // UC4:- Ability to edit existing contact person using their name
+        public bool EditContactUsingName(string Zip, string FirstName, string LastName)
+        {
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    //Query for updating 
+                    string query = @"update dbo.AddressBookDataBase set Zip = @parameter1
+                    where FirstName = @parameter2 and LastName = @parameter3";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@parameter1", Zip);
+                    command.Parameters.AddWithValue("@parameter2", FirstName);
+                    command.Parameters.AddWithValue("@parameter3", LastName);
+                    //ExecuteNonQuery row affected
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();//Close connection
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

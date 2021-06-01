@@ -18,7 +18,9 @@ namespace Address_book_Ao
             // addressBookManagement.GetAllContact();//UC2
             //addressBookManagement.AddDataToTable();
            
-            AddNewContactDetails();
+            //AddNewContactDetails();//UC3
+            Console.WriteLine(addressBookManagement.EditContactUsingName("445566", "Naina", "Wadal") ? 
+                "Update Record successfully\n" : "Update failed"); //UC4
             Console.ReadLine();
 
         }
