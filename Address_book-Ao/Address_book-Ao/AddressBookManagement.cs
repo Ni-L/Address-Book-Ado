@@ -44,5 +44,65 @@ namespace Address_book_Ao
             }
 
         }
+        //UC2 Getting data
+        public void GetAllContact()
+        {
+            //Creating object of AddressBookModel 
+            AddressBookModel model = new AddressBookModel();
+            try
+            {
+                using (connection)//Calling Connection
+                {
+                    // Query to get all the data from the table
+                    string query = @"select * from dbo.AddressBookProcedure";
+
+                    // Impementing the command on the connection fetched database table
+                    //SqlCommands represents Transactquery or stored procedure to execute against databse
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    connection.Open();  //Open the connection.
+                    // executing the sql data reader to fetch the records
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+
+                        while (reader.Read())  // Mapping the data to the employee model class object
+                        {
+                            model.FirstName = reader.GetString(0);
+                            model.LastName = reader.GetString(1);
+                            model.Address = reader.GetString(2);
+                            model.City = reader.GetString(3);
+                            model.State = reader.GetString(4);
+                            model.Zip = reader.GetInt32(5);
+                            model.PhoneNumber = reader.GetInt32(6);
+                            model.EmailId = reader.GetString(7);
+                            model.AddressBookType = reader.GetString(8);
+                            model.AddressBookName = reader.GetString(9);
+                            Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", model.FirstName, model.LastName,
+                            model.Address, model.City, model.State, model.Zip, model.PhoneNumber, model.EmailId, model.AddressBookType, model.AddressBookName);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is No records in Address Book System Table");
+                    }
+                    reader.Close();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            //The finally block will execute when the try/catch block leaves the execution,
+            //no matter what condition cause it.
+            finally
+            {
+                //Closing connection
+                connection.Close();
+            }
+        }
     }
 }
+    

@@ -14,7 +14,8 @@ namespace Address_book_Ao
 
             AddressBookManagement addressBookManagement = new AddressBookManagement();
 
-            addressBookManagement.DataBaseConnection(); //UC1
+            //addressBookManagement.DataBaseConnection(); //UC1
+            addressBookManagement.GetAllContact();//UC2
             Console.ReadLine();
            
         }
