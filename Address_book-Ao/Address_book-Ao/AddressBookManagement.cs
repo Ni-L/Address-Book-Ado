@@ -157,7 +157,7 @@ namespace Address_book_Ao
                 {
                     connection.Open();
                     //Query for updating 
-                    string query = @"update dbo.AddressBookDataBase set Zip = @parameter1
+                    string query = @"update dbo.AddressBookSystem set Zip = @parameter1
                     where FirstName = @parameter2 and LastName = @parameter3";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@parameter1", Zip);
@@ -174,6 +174,39 @@ namespace Address_book_Ao
                 }
             }
 
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        //UC5-DeleteContactUsingName
+        public bool DeleteContactUsingName(string FirstName, string LastName)
+        {
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string query = "delete from dbo.AddressBookSystem where FirstName = @parameter1 and LastName =@parameter2";
+                    // Binding the parameter to the formal parameters
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    command.Parameters.AddWithValue("@parameter1", FirstName);
+                    command.Parameters.AddWithValue("@parameter2", LastName);
+                    // Storing the result of the executed query
+                    var result = command.ExecuteNonQuery(); 
+                    connection.Close();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);

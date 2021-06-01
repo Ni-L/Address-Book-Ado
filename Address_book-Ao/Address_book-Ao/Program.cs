@@ -17,10 +17,10 @@ namespace Address_book_Ao
             //addressBookManagement.DataBaseConnection(); //UC1
             // addressBookManagement.GetAllContact();//UC2
             //addressBookManagement.AddDataToTable();
-           
+
             //AddNewContactDetails();//UC3
-            Console.WriteLine(addressBookManagement.EditContactUsingName("445566", "Naina", "Wadal") ? 
-                "Update Record successfully\n" : "Update failed"); //UC4
+            // Console.WriteLine(addressBookManagement.EditContactUsingName("445566", "Naina", "Wadal") ? "Update Record successfully\n" : "Update failed"); //UC4
+            Console.WriteLine(addressBookManagement.DeleteContactUsingName("Naina", "Wadal") ? "Delete Record successfully\n" : "Delete failed"); //UC5
             Console.ReadLine();
 
         }

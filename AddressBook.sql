@@ -13,3 +13,4 @@ Create procedure dbo.AddressBookProcedure
 	as begin
 	Insert into AddressBookSystem values(@FirstName,@LastName,@Address,@City,@State,@Zip,@PhoneNumber,@EmailId,@AddressBookType,@AddressBookName)
 	End
+	drop procedure AddressBookProcedure;
