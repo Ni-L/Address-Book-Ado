@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -73,8 +74,8 @@ namespace Address_book_Ao
                             model.Address = reader.GetString(2);
                             model.City = reader.GetString(3);
                             model.State = reader.GetString(4);
-                            model.Zip = reader.GetInt32(5);
-                            model.PhoneNumber = reader.GetInt32(6);
+                            model.Zip = reader.GetString(5);
+                            model.PhoneNumber = reader.GetString(6);
                             model.EmailId = reader.GetString(7);
                             model.AddressBookType = reader.GetString(8);
                             model.AddressBookName = reader.GetString(9);
@@ -103,6 +104,49 @@ namespace Address_book_Ao
                 connection.Close();
             }
         }
+        public bool AddDataToTable(AddressBookModel model)
+        {
+            try
+            {
+                using (connection) // Using the connection established
+                {
+                    // // Implementing the stored procedure
+                    SqlCommand command = new SqlCommand("dbo.AddressBookProcedure", connection);
+                    //CommandType= how a command string is interpreted
+                    command.CommandType = CommandType.StoredProcedure;
+                    //Parameter is default empty connection
+                    //Parameter is transact query or stored procedure
+                    //Adds the values at the end of the sqlparameter to the sqlcollection
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@EmailID", model.EmailId);
+                    command.Parameters.AddWithValue("@addressBookType", model.AddressBookType);
+                    command.Parameters.AddWithValue("@addressBookName", model.AddressBookName);
+
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (result != 0)  //Return the result of the transaction 
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
-    
